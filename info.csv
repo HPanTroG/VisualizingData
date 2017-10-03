@@ -1,11 +1,11 @@
 topic,topWords,tweets
-Topic-0,list of top words 0,list of tweets B
-Topic-1,list of top words 1,list of tweets B
-Topic-2,list of top words 2,list of tweets B
-Topic-3,list of top words 3,list of tweets B
-Topic-4,list of top words 4,list of tweets B
-Topic-5,list of top words 5,list of tweets B
-Topic-6,list of top words 6,list of tweets B
-Topic-7,list of top words 7,list of tweets B
-Topic-8,list of top words 8,list of tweets B
-Topic-9,list of top words 9,list of tweets B
+Topic-0,list of top words 0,20;21;22
+Topic-1,list of top words 1,23;24;25
+Topic-2,list of top words 2,26;27;28
+Topic-3,list of top words 3,20;21;22;23
+Topic-4,list of top words 4,40;41;42
+Topic-5,list of top words 5,30;21;62
+Topic-6,list of top words 6,80;11;22
+Topic-7,list of top words 7,70;41;65
+Topic-8,list of top words 8,20;21;22
+Topic-9,list of top words 9,40;41;22
