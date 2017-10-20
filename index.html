@@ -32,15 +32,21 @@ button {
 
 /* Box styles */
 .myBox {
-border: none;
+border: 1px;
+margin-top: 10px;
 padding: 5px;
 font: 24px/36px sans-serif;
-width: 500px;
 background-color:red;
 }
-
+.myBox1 {
+border: 1px;
+margin-top: 10px;
+padding: 5px;
+font: 24px/36px sans-serif;
+background-color:red;
+}
 .tweets {
-margin-top:20px;
+margin-top:10px;
 margin-left:400px;
 width: 530px;
 height:400px;
@@ -52,8 +58,6 @@ overflow-y: auto;
 position:absolute;
 }
 
-
-
 </style>
 <body>
 <script src="http://d3js.org/d3.v2.js"></script>
@@ -64,7 +68,7 @@ position:absolute;
 
 <script>
 
-chart("counts.csv", "info.csv", "blue");
+chart("topicDistributionOverTime.csv", "tweetTopicRepresentativeTweets.csv", "blue");
 var time;
 var datearray = [];
 var colorrange = [];
@@ -160,11 +164,11 @@ var graph = d3.csv(csvpath, function(data) {
     d.timeStep = format.parse(d.timeStep); // third attr
     d.proportion = +d.proportion; // cast d.proportion to a number
   });
-
+	data1 = nest.entries(data1);
   
 // get d.y0 and d.y and values by keys
-  var layers = stack(nest.entries(data, data1));
-
+  var layers = stack(nest.entries(data));
+	
   // extent: get max and min of x
   x.domain(d3.extent(data, function(d) { return d.timeStep; })); // third attr
   // max: return max of data
@@ -223,11 +227,12 @@ var graph = d3.csv(csvpath, function(data) {
 	  // print top words of the topic
 	  topic = d.values[mousedate].topic;
 	  //document.write(topic);
-	  var index = data1.findIndex(x => x.topic == topic);
+	  var index = data1.findIndex(x => x.key == topic);
 	  proportion = d.values[mousedate].proportion;
-	  var topWords = data1[index].topWords;
-	  var tweets = data1[index].tweets;
-	  tweetList = tweets.split(";");
+	 // var topWords = data1[index].topWords;
+	  tweetList = data1[index].values;
+	  
+	 //tweetList = tweets.split(";");
 	  
 	  var formatDate = d3.time.format("%b/%d/%Y:%H:%M:%S");
 	  var date = formatDate(mouseMoverTime);
@@ -237,7 +242,7 @@ var graph = d3.csv(csvpath, function(data) {
       .classed("hover", true)
       .attr("stroke", strokecolor)
       .attr("stroke-width", "0.5px"), 
-      tooltip.html( "<p> "+ topic + "<br>"  + topWords + "</p>" )
+      tooltip.html( "<p> "+ topic + "<br> </p>" )
 			.style("visibility", "visible")
 			  .style("left", (d3.event.pageX+ 20) +"px")
 			.style("top", (d3.event.pageY - 20) +"px"),
@@ -246,6 +251,7 @@ var graph = d3.csv(csvpath, function(data) {
 
     })
 	.on("click", function() {
+	d3.select(".myBox1").remove();
 	d3.select(".myBox").remove();
 		d3.select(".tweets")
 		.text(topic+": "+proportion+" tweets");
@@ -255,7 +261,7 @@ var graph = d3.csv(csvpath, function(data) {
 		.attr("class", "myBox")
 		.attr("id", "myBox"),
         twttr.widgets.createTweet(
-		  d,
+		  d.tweetId,
 		  document.getElementById("myBox"),
 		  {
 			theme: 'green'
@@ -313,4 +319,5 @@ var graph = d3.csv(csvpath, function(data) {
 }
 
 </script>
+<div class="tweets" id="tweets">List of tweets</div>
 <div class="tweets" id="tweets">List of tweets</div>
