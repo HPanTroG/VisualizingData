@@ -12,8 +12,9 @@ body {
 }
 
 p {
-  font: 13px helvetica;
-  color:red;
+  font: 14px helvetica;
+  color:black;
+  
 }
 
 
@@ -32,30 +33,35 @@ button {
 
 /* Box styles */
 .myBox {
-border: 1px;
-margin-top: 10px;
 padding: 5px;
 font: 24px/36px sans-serif;
-background-color:red;
+
 }
 .myBox1 {
-border: 1px;
-margin-top: 10px;
 padding: 5px;
 font: 24px/36px sans-serif;
-background-color:red;
+
+}
+.title {
+margin-top:10px;
+margin-left:400px;
+width: 530px;
+font: 26px/38px sans-serif;
+color:#3b94d9;
 }
 .tweets {
-margin-top:10px;
 margin-left:400px;
 width: 530px;
 height:400px;
 color:black;
 font-size:20pt;
-background-color:red;
 visibility:hidden;
 overflow-y: auto;
 position:absolute;
+border-top: solid;
+border-color: blue;
+border-width: 1px;
+box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
 }
 
 </style>
@@ -251,10 +257,9 @@ var graph = d3.csv(csvpath, function(data) {
 
     })
 	.on("click", function() {
-	d3.select(".myBox1").remove();
+	d3.select(".title").text(topic+": "+proportion+" tweets");
 	d3.select(".myBox").remove();
-		d3.select(".tweets")
-		.text(topic+": "+proportion+" tweets");
+		
 		tweetList.forEach(function(d) {
 		d3.select(".tweets")
 		.append("div")
@@ -319,5 +324,5 @@ var graph = d3.csv(csvpath, function(data) {
 }
 
 </script>
-<div class="tweets" id="tweets">List of tweets</div>
-<div class="tweets" id="tweets">List of tweets</div>
+<div class="title" id="title"></div>
+<div class="tweets" id="tweets"></div>
